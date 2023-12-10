@@ -258,7 +258,8 @@ namespace KursTRPO
             {
                 fileInfo = new FileInfo(fileName);
 
-                string query = $"Select Price From Conditioner Where IdItem = {dataGridSells.CurrentRow.Cells[0].Value}";
+                string query = $"Select Price From Conditioner join Sell on Sell.IdItem = Conditioner.IdItem" +
+                        $" Where IdSell = {dataGridSells.CurrentRow.Cells[0].Value}";
                 SqlCommand command = new SqlCommand(query,sqlConnection);
                 int price = Convert.ToInt32(command.ExecuteScalar());
 
@@ -276,7 +277,7 @@ namespace KursTRPO
 
                     Object missing = Type.Missing;
 
-                    app.Documents.Open(@"D:\KursTRPO\KursTRPO\Чек.docx");
+                    app.Documents.Open(file);
                     app.Visible = false;
                     foreach (var item in items)
                     {
